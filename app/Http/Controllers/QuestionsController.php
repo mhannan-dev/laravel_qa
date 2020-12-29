@@ -22,7 +22,7 @@ class QuestionsController extends Controller
         // view('frontend.pages.question.index', $data)->render();
         // dd(\DB::getQueryLog());
         
-        $data['questions'] = Question::latest()->paginate(5);
+        $data['questions'] = Question::with('user')->latest()->paginate(5);
         return view('frontend.pages.question.index', $data);
         
 
