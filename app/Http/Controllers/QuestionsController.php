@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Question;
 use Illuminate\Http\Request;
-
-class QuestionController extends Controller
+use App\Question;
+class QuestionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +13,11 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $data['questions'] = Question::latest()->paginate(5);
+        //dd($data['questions']);
+        return view('frontend.pages.question.index', $data);
 
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -41,33 +42,39 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Question  $question
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question)
+    public function show($id)
     {
-        //
+       $data['question'] = Question::find($id);
+       return view('frontend.pages.question.detail', $data);
+
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Question  $question
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Question $question)
+    public function edit($id)
     {
-        //
+        
+        $data['question'] = Question::find($id);
+        //dd($data['question']);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Question  $question
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +82,10 @@ class QuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Question  $question
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Question $question)
+    public function destroy($id)
     {
         //
     }
