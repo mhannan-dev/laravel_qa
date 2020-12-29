@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Question;
+use Illuminate\Http\Request;
+
 class QuestionsController extends Controller
 {
     /**
@@ -13,9 +14,19 @@ class QuestionsController extends Controller
      */
     public function index()
     {
+
+        // \DB::enableQueryLog();
+        // $data['questions'] = Question::latest()->paginate(5);
+        // //dd($data['questions']);
+        // //return view('frontend.pages.question.index', $data);
+        // view('frontend.pages.question.index', $data)->render();
+        // dd(\DB::getQueryLog());
+        
         $data['questions'] = Question::latest()->paginate(5);
-        //dd($data['questions']);
         return view('frontend.pages.question.index', $data);
+        
+
+        
 
     }
     /**
@@ -47,9 +58,9 @@ class QuestionsController extends Controller
      */
     public function show($id)
     {
-       $data['question'] = Question::find($id);
-       return view('frontend.pages.question.detail', $data);
 
+        $data['question'] = Question::find($id);
+        return view('frontend.pages.question.detail', $data);
 
     }
 
@@ -61,7 +72,7 @@ class QuestionsController extends Controller
      */
     public function edit($id)
     {
-        
+
         $data['question'] = Question::find($id);
         //dd($data['question']);
 
