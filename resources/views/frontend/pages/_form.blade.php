@@ -24,4 +24,4 @@
                                 </div>
                             @endif
                         </div>
-                        <button type="submit" class="btn btn-default">{{  $buttonText }}</button>
+                        <button type="submit" class="btn btn-outline-secondary">{{  $buttonText }}</button>

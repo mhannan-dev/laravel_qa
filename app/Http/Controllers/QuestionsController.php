@@ -62,11 +62,11 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Question $question)
     {
-
-        $data['question'] = Question::find($id);
-        return view('frontend.pages.question.detail', $data);
+        
+        $question->increment('views');
+        return view('frontend.pages.question.show', compact('question'));
 
     }
 

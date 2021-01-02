@@ -43,10 +43,10 @@
 
                                 </div> 
                                 <div class="media-body">
-                                    <div class="d-flex align-items-center   ">
-                                    <h5 class="mt-0 text-dark"> </h3>
+                                    <div class="d-flex align-items-center">
+                                    <h2 class="mt-0 text-dark"> </h2>
                                         
-                                        <a href="{{ route('questions.show',$question->id )}}">{{ $question->title }}</a> 
+                                        <a href="{{ route('questions.show', $question->slug)}}">{{ $question->title }}</a> 
                                         
                                         <div class="ml-auto">
                                             <a href="{{ route('questions.edit', $question->id)}}" class="btn btn-outline-secondary btn-sm">
@@ -61,9 +61,13 @@
                                         </form>
                                         </div>
                                    </div> 
-                                    <p class="lead">
-                                      Ask by <a href="">{{ $question->user->name }}</a>
-                                      <small>{{ $question->created_at }}</small>
+                                    <p>
+                                      Ask by <a href="{{ $question->user->url }}">{{ $question->user->name }}</a>
+                                      
+                                      <small class="text-muted">
+
+                                          {{ $question->created_date }}
+                                      </small>
                                     </p>
 
                                     {{ \Illuminate\Support\Str::limit($question->body, 150) }}

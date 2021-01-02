@@ -1,16 +1,16 @@
 <?php
 
 namespace App;
-
+use Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Question extends Model
 {
     protected $table = 'questions';
+    
 
-    protected $fillable = [
-        'title', 'body'];
+    protected $fillable = ['title', 'body'];
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -25,10 +25,16 @@ class Question extends Model
 
     public function getUrlAttribute()
     {
-        return route("questions.show", $this->id);
+        //return route("questions.show", $this->id);
+        return route("questions.show", $this->slug);
+
+        
     }
-    public function getCreatedDateAttribute(){
-        return $this->created_at->diffForHumans();
+     public function getCreatedDateAttribute()
+    {
+        //return $this->created_at->diffForHumans();
+        return Carbon\Carbon::parse( $this->created_at)->diffForHumans();
+
     }
 
     public function getStatusAttribute(){
@@ -39,6 +45,12 @@ class Question extends Model
 
         }
         return "unanswered";
+    }
+
+    public function getBodyHtmlAttribute(){
+        return \Parsedown::instance()->text($this->body);
+
+
     }
 
 }
