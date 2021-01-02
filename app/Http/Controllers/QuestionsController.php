@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AskQuestionRequest;
 use App\Question;
 use Illuminate\Http\Request;
 
@@ -21,12 +22,11 @@ class QuestionsController extends Controller
         // //return view('frontend.pages.question.index', $data);
         // view('frontend.pages.question.index', $data)->render();
         // dd(\DB::getQueryLog());
-        
-        $data['questions'] = Question::with('user')->latest()->paginate(5);
-        return view('frontend.pages.question.index', $data);
-        
 
-        
+        $data['questions'] = Question::with('user')->latest()->paginate(5);
+
+        //dd($data['questions']);
+        return view('frontend.pages.question.index', $data);
 
     }
     /**
@@ -36,7 +36,10 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        //
+        $question = new Question();
+        $data['page_title'] = "Ask Question";
+        return view('frontend.pages.question.create', $data, compact('question'));
+
     }
 
     /**
@@ -45,9 +48,11 @@ class QuestionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AskQuestionRequest $request)
     {
-        //
+
+        $request->user()->questions()->create($request->only('title', 'body'));
+        return redirect()->route('questions.index')->with('sucess', 'Your question has been submitted');
     }
 
     /**

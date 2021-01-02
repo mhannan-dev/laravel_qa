@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Question extends Model
 {
@@ -11,14 +12,15 @@ class Question extends Model
     protected $fillable = [
         'title', 'body'];
 
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo(User::class);
-    }
+    }  
+
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
-        $this->attributes['slug'] = str_slug($value);
+        $this->attributes['slug'] = Str::slug($value);
+
     }
 
     public function getUrlAttribute()
@@ -26,7 +28,7 @@ class Question extends Model
         return route("questions.show", $this->id);
     }
     public function getCreatedDateAttribute(){
-        $this->created_at->diffForHumans();
+        return $this->created_at->diffForHumans();
     }
 
     public function getStatusAttribute(){

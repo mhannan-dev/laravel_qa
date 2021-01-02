@@ -38,11 +38,10 @@ class User extends Authenticatable
     ];
 
 
-    public function user()
+    public function questions()
     {
         return $this->hasMany(Question::class);
-
-    }
+    } 
 
     
     
