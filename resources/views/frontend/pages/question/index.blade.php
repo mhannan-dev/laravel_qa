@@ -17,6 +17,7 @@
                     
                     </div>
                     <div class="card-body">
+                        @include('frontend.layout._messages')
                         @foreach ($questions as $question)
                             <div class="media">
                                 <div class="d-flex flex-column counters mr-2 text-center">
@@ -41,7 +42,11 @@
 
                                 </div> 
                                 <div class="media-body">
-                                    <h5 class="mt-0 text-dark"><a href="{{ $question->url }}{{ route('questions.show',$question->id )}}">{{ $question->title }}</a></h3>
+                                    <h5 class="mt-0 text-dark">
+                                        
+                                        <a href="{{ route('questions.show',$question->id )}}">{{ $question->title }}</a> 
+                                        <a href="{{ route('questions.edit', $question->id)}}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                    </h3>
                                     <p class="lead">
                                       Ask by <a href="">{{ $question->user->name }}</a>
                                       <small>{{ $question->created_at }}</small>

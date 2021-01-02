@@ -15,8 +15,11 @@
 
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('questions.store') }}" method="post">
-                        @include('frontend.pages._form', ['buttonText' => 'Ask The Question'])
+                    <form action="{{ route('questions.update', $question->id ) }}" method="post">
+                        @method('put')
+                        @include('frontend.pages._form', ['buttonText' => 'Update this Question'])
+                        
+                        
                     </form>
 
 

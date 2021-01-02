@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AskQuestionRequest;
 use App\Question;
 use Illuminate\Http\Request;
+use Session;
+
 
 class QuestionsController extends Controller
 {
@@ -52,7 +54,8 @@ class QuestionsController extends Controller
     {
 
         $request->user()->questions()->create($request->only('title', 'body'));
-        return redirect()->route('questions.index')->with('sucess', 'Your question has been submitted');
+        return redirect()->route('questions.index')->with('success', 'Your question has been submitted!');
+
     }
 
     /**
@@ -75,11 +78,12 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Question $question)
     {
+       
+        $data['page_title'] = "Edit Question";
+        return view('frontend.pages.question.edit', $data, compact('question'));
 
-        $data['question'] = Question::find($id);
-        //dd($data['question']);
 
     }
 
@@ -90,9 +94,12 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AskQuestionRequest $request, Question $question)
     {
-        //
+        
+        $question->update($request->only('title', 'body'));
+        return redirect()->route('questions.index')->with('success', 'Your question has been updated!');
+
     }
 
     /**
