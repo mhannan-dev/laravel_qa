@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AskQuestionRequest;
 use App\Question;
 use Illuminate\Http\Request;
-use Session;
-
 
 class QuestionsController extends Controller
 {
@@ -80,10 +78,9 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-       
+
         $data['page_title'] = "Edit Question";
         return view('frontend.pages.question.edit', $data, compact('question'));
-
 
     }
 
@@ -96,7 +93,7 @@ class QuestionsController extends Controller
      */
     public function update(AskQuestionRequest $request, Question $question)
     {
-        
+
         $question->update($request->only('title', 'body'));
         return redirect()->route('questions.index')->with('success', 'Your question has been updated!');
 
@@ -108,8 +105,17 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Question $question)
     {
-        //
+        $question->delete();
+
+        if (request()->expectsJson()) {
+            return response()->json([
+                'message' => "Your question has been deleted.",
+            ]);
+        }
+
+        return redirect('/questions')->with('success', "Your question has been deleted.");
+
     }
 }

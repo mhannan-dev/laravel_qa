@@ -10,6 +10,7 @@
                                 
                                 <div class="ml-auto ">
                                     <a href="{{ route('questions.create')}}" class="btn btn-outline-secondary">Ask Question</a>
+
                                 </div>
                                 
                         </div>
@@ -42,11 +43,24 @@
 
                                 </div> 
                                 <div class="media-body">
-                                    <h5 class="mt-0 text-dark">
+                                    <div class="d-flex align-items-center   ">
+                                    <h5 class="mt-0 text-dark"> </h3>
                                         
                                         <a href="{{ route('questions.show',$question->id )}}">{{ $question->title }}</a> 
-                                        <a href="{{ route('questions.edit', $question->id)}}" class="btn btn-outline-secondary btn-sm">Edit</a>
-                                    </h3>
+                                        
+                                        <div class="ml-auto">
+                                            <a href="{{ route('questions.edit', $question->id)}}" class="btn btn-outline-secondary btn-sm">
+                                            <i class="fa fa-edit"></i>
+                                            </a>
+                                            <form class="form-delete" method="post" action="{{ route('questions.destroy', $question->id) }}">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-outline-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        </form>
+                                        </div>
+                                   </div> 
                                     <p class="lead">
                                       Ask by <a href="">{{ $question->user->name }}</a>
                                       <small>{{ $question->created_at }}</small>
