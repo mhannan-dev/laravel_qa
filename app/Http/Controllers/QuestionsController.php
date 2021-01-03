@@ -36,9 +36,10 @@ class QuestionsController extends Controller
      */
     public function create()
     {
+
         $question = new Question();
-        $data['page_title'] = "Ask Question";
-        return view('frontend.pages.question.create', $data, compact('question'));
+        //$data['question'] = new Question();
+        return view('frontend.pages.question.create', compact('question'));
 
     }
 
@@ -50,6 +51,8 @@ class QuestionsController extends Controller
      */
     public function store(AskQuestionRequest $request)
     {
+
+        //dd($request->all());
 
         $request->user()->questions()->create($request->only('title', 'body'));
         return redirect()->route('questions.index')->with('success', 'Your question has been submitted!');
@@ -64,7 +67,7 @@ class QuestionsController extends Controller
      */
     public function show(Question $question)
     {
-        
+
         $question->increment('views');
         return view('frontend.pages.question.show', compact('question'));
 
@@ -80,6 +83,9 @@ class QuestionsController extends Controller
     {
 
         $data['page_title'] = "Edit Question";
+        if (\Gate::denies('update-question', $question)) {
+            abort(403, "Access Denied");
+        }
         return view('frontend.pages.question.edit', $data, compact('question'));
 
     }
@@ -93,7 +99,10 @@ class QuestionsController extends Controller
      */
     public function update(AskQuestionRequest $request, Question $question)
     {
+        if (\Gate::denies('update-question', $question)) {
+            abort(403, "Access Denied");
 
+        }
         $question->update($request->only('title', 'body'));
         return redirect()->route('questions.index')->with('success', 'Your question has been updated!');
 
@@ -107,6 +116,12 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
+
+        if (\Gate::denies('delete-question', $question)) {
+            abort(403, "Access Denied");
+
+        }
+
         $question->delete();
 
         if (request()->expectsJson()) {

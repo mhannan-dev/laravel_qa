@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
-                        <h2 class="text-muted">{{ $page_title }}</h1>
+                        <h2 class="text-muted">Ask Question</h1>
                             <div class="ml-auto ">
                                 <a href="{{ route('questions.index') }}" class="btn btn-outline-secondary">Back</a>
                             </div>
