@@ -49,14 +49,14 @@
                                     <a href="{{ route('questions.show', $question->slug) }}">{{ $question->title }}</a>
 
                                     <div class="ml-auto">
-                                        @if (Auth::user()->can('update-question', $question))
+                                        @if (Auth::user()->can('update', $question))
                                             <a href="{{ route('questions.edit', $question->id) }}"
                                                 class="btn btn-outline-secondary btn-sm">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         @endif
-                                        
-                                        @if (Auth::user()->can('delete-question', $question))
+
+                                        @if (Auth::user()->can('delete', $question))
                                             <form class="form-delete" method="post"
                                                 action="{{ route('questions.destroy', $question->id) }}">
                                                 @method('DELETE')
