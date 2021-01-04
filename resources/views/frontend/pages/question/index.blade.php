@@ -24,18 +24,18 @@
                             <div class="d-flex flex-column counters mr-2 text-center">
                                 <div class="vote">
                                     <strong>{{ $question->votes }}</strong><br>
-                                    {{ Illuminate\Support\Str::plural('vote', $question->votes) }}
+                                    {{ Str::plural('vote', $question->votes) }}
                                 </div>
 
                                 <div class="answer">
                                     <strong>{{ $question->answers_count }}</strong><br>
-                                    {{ Illuminate\Support\Str::plural('answer', $question->answers_count) }}
+                                    {{ Str::plural('answer', $question->answers_count) }}
 
                                 </div>
 
                                 <div class="view">
                                     <strong>{{ $question->views }}</strong><br>
-                                    {{ Illuminate\Support\Str::plural('view', $question->views) }}
+                                    {{ Str::plural('view', $question->views) }}
 
                                 </div>
 
@@ -44,9 +44,10 @@
                             </div>
                             <div class="media-body">
                                 <div class="d-flex align-items-center">
-                                    <h2 class="mt-0 text-dark"> </h2>
+                                    <h4 class="mt-0 text-dark"> 
 
-                                    <a href="{{ route('questions.show', $question->slug) }}">{{ $question->title }}</a>
+                                    <a class="text-success" href="{{ route('questions.show', $question->slug) }}">{{ $question->title }}</a>
+                                </h4>
 
                                     <div class="ml-auto">
                                         @if (Auth::user()->can('update', $question))
@@ -80,7 +81,7 @@
                                     </small>
                                 </p>
 
-                                {{ \Illuminate\Support\Str::limit($question->body, 150) }}
+                                {{ Str::limit($question->body, 150) }}
                             </div>
                         </div>
                         <hr>

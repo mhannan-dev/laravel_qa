@@ -30,7 +30,7 @@ class Question extends Model
 
         
     }
-     public function getCreatedDateAttribute()
+    public function getCreatedDateAttribute()
     {
         //return $this->created_at->diffForHumans();
         return Carbon\Carbon::parse( $this->created_at)->diffForHumans();

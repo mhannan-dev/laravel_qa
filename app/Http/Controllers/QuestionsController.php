@@ -24,6 +24,7 @@ class QuestionsController extends Controller
         // dd(\DB::getQueryLog());
 
         $data['questions'] = Question::with('user')->latest()->paginate(5);
+        //dd($data['questions']);
 
         //dd($data['questions']);
         return view('frontend.pages.question.index', $data);
@@ -69,6 +70,7 @@ class QuestionsController extends Controller
     {
 
         $question->increment('views');
+        //dd($question);
         return view('frontend.pages.question.show', compact('question'));
 
     }
