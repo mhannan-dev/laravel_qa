@@ -28,8 +28,8 @@
                                 </div>
 
                                 <div class="answer">
-                                    <strong>{{ $question->answers }}</strong><br>
-                                    {{ Illuminate\Support\Str::plural('answer', $question->answers) }}
+                                    <strong>{{ $question->answers_count }}</strong><br>
+                                    {{ Illuminate\Support\Str::plural('answer', $question->answers_count) }}
 
                                 </div>
 
